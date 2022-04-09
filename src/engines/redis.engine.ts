@@ -4,7 +4,7 @@ import stringify from 'json-stringify-safe';
 import Redis from 'ioredis';
 
 export class RedisEngine implements CacheInterface {
-  private client;
+  private client: Redis;
 
   constructor(public engine: string, public config: Config) {
     this.client = this.configureClient();
