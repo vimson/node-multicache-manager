@@ -4,7 +4,7 @@ import Memcached from 'memcached';
 import stringify from 'json-stringify-safe';
 
 export class MemcacheEngine implements CacheInterface {
-  private client;
+  private client: Memcached;
 
   constructor(public engine: string, public config: Config) {
     this.client = this.configureClient();
