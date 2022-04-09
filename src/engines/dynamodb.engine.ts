@@ -27,13 +27,14 @@ export class DynamoDBEngine implements CacheInterface {
     return client;
   }
 
-  async write<Type>(key: string, item: Type): Promise<any> {
+  async write<Type>(key: string, item: Type, ttl: number): Promise<any> {
     const params = {
       TableName: this.cacheTable,
       Item: {
         pk: this.cacheType,
         sk: key,
         data: item,
+        ttl: ttl,
       },
     };
 
