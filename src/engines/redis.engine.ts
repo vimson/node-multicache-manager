@@ -4,13 +4,13 @@ import stringify from 'json-stringify-safe';
 import Redis from 'ioredis';
 
 export class RedisEngine implements CacheInterface {
-  private client: Redis;
+  private client;
 
   constructor(public engine: string, public config: Config) {
     this.client = this.configureClient();
   }
 
-  configureClient() {
+  configureClient(): Redis {
     const client = new Redis(this.config);
     return client;
   }
