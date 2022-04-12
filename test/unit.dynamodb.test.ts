@@ -6,6 +6,8 @@ const DynamoConfig = {
   maxRetries: 20,
   accessKeyId: 'msh1u9',
   secretAccessKey: '5s8mpp',
+  dataType: 'Profiles',
+  cacheTable: 'cache',
 };
 
 const cacheManager = new CacheManager(CacheEngines.dynamodb, DynamoConfig);

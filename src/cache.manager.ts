@@ -4,12 +4,14 @@ import { CacheEngineFactory } from './factories';
 
 export class CacheManager {
   engine: string;
-  config: Config;
+  config: Config = {};
   cache: DynamoDBEngine | MemcacheEngine | RedisEngine;
 
-  constructor(engine: string, config: Config) {
+  constructor(engine: string, config?: Config) {
     this.engine = engine;
-    this.config = config;
+    if (typeof config !== 'undefined') {
+      this.config = config ?? {};
+    }
     this.cache = this.buildClient();
   }
 

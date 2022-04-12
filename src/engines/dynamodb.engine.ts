@@ -4,7 +4,7 @@ import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
 export class DynamoDBEngine implements CacheInterface {
   private client: DocumentClient;
-  private cacheType = 'cache#categorypages';
+  private dataType = 'GenericCache';
   private cacheTable = 'cache';
 
   constructor(public engine: string, public config: Config = {}) {
@@ -24,6 +24,9 @@ export class DynamoDBEngine implements CacheInterface {
         : new DocumentClient({
             maxRetries: 20,
           });
+
+    this.dataType = this.config['dataType'] ?? this.dataType;
+    this.cacheTable = this.config['cacheTable'] ?? this.cacheTable;
     return client;
   }
 
@@ -31,7 +34,7 @@ export class DynamoDBEngine implements CacheInterface {
     const params = {
       TableName: this.cacheTable,
       Item: {
-        pk: this.cacheType,
+        pk: this.dataType,
         sk: key,
         data: item,
         ttl: ttl,
@@ -55,7 +58,7 @@ export class DynamoDBEngine implements CacheInterface {
         {
           TableName: this.cacheTable,
           Key: {
-            pk: this.cacheType,
+            pk: this.dataType,
             sk: key,
           },
         },
@@ -76,7 +79,7 @@ export class DynamoDBEngine implements CacheInterface {
         {
           TableName: this.cacheTable,
           Key: {
-            pk: this.cacheType,
+            pk: this.dataType,
             sk: key,
           },
         },
