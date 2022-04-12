@@ -6,12 +6,17 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/vimson/node-multicache-manager",
   "files": [
     "dist",
     "src"
   ],
   "engines": {
     "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vimson/node-multicache-manager"
   },
   "scripts": {
     "start": "tsdx watch",
