@@ -28,9 +28,11 @@ export class CacheManager {
   }
 
   buildClient(): DynamoDBEngine | RedisEngine | MemcacheEngine {
+    let cacheEngine;
+
     switch (this.engine) {
       case 'DYNAMODB':
-        return new CacheEngineFactory().getInstance(
+        cacheEngine = new CacheEngineFactory().getInstance(
           DynamoDBEngine,
           this.engine,
           this.config
@@ -38,7 +40,7 @@ export class CacheManager {
         break;
 
       case 'MEMCACHE':
-        return new CacheEngineFactory().getInstance(
+        cacheEngine = new CacheEngineFactory().getInstance(
           MemcacheEngine,
           this.engine,
           this.config
@@ -46,17 +48,13 @@ export class CacheManager {
         break;
 
       case 'REDIS':
-        return new CacheEngineFactory().getInstance(
+        cacheEngine = new CacheEngineFactory().getInstance(
           RedisEngine,
           this.engine,
           this.config
         );
         break;
-
-      default:
-        break;
     }
-
-    throw new Error('Cache engine not specified');
+    return cacheEngine;
   }
 }
