@@ -1,6 +1,6 @@
 # Type Safe Cache implementation with Redis, Memcached & DynamoDB
 
-![example workflow](https://github.com/vimson/node-multicache-manager/actions/workflows/main.yml/badge.svg)
+![example workflow](https://github.com/vimson/node-multicache-manager/actions/workflows/main.yml/badge.svg?v=2)
 
 A cache module for nodejs that allows easy wrapping of cache operations like read, write and delete. We can configure the underlying engine while creating the adapter classes.
 
