@@ -1,9 +1,8 @@
-import { CacheInterface } from '../interfaces';
-import { Config } from '../interfaces';
+import { RepositoryInterface, Config } from '../interfaces';
 import stringify from 'json-stringify-safe';
 import Redis from 'ioredis';
 
-export class RedisEngine implements CacheInterface {
+export class RedisRepository implements RepositoryInterface {
   private client;
 
   constructor(public engine: string, public config: Config) {

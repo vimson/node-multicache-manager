@@ -1,60 +1,70 @@
+import { CacheEngineFactory, RepositoryFactory } from './factories';
 import { Config } from './interfaces';
-import { DynamoDBEngine, MemcacheEngine, RedisEngine } from './engines';
-import { CacheEngineFactory } from './factories';
+import {
+  DDBRepository,
+  MemcacheRepository,
+  RedisRepository,
+} from './repositories';
+
+type RepositoryType = DDBRepository | MemcacheRepository | RedisRepository;
 
 export class CacheManager {
   engine: string;
   config: Config = {};
-  cache: DynamoDBEngine | MemcacheEngine | RedisEngine;
+  repo: RepositoryType;
 
   constructor(engine: string, config?: Config) {
     this.engine = engine;
     if (typeof config !== 'undefined') {
       this.config = config ?? {};
     }
-    this.cache = this.buildClient();
+    this.repo = this.buildRepository();
   }
 
   async write<Type>(key: string, item: Type, ttl: number): Promise<any> {
-    return await this.cache.write<typeof item>(key, item, ttl);
+    return await this.repo.write<typeof item>(key, item, ttl);
   }
 
   async read<Type>(key: string): Promise<Type> {
-    return (await this.cache.read(key)) as Type;
+    return (await this.repo.read(key)) as Type;
   }
 
   async delete(key: string): Promise<boolean> {
-    return await this.cache.delete(key);
+    return await this.repo.delete(key);
   }
 
-  buildClient(): DynamoDBEngine | RedisEngine | MemcacheEngine {
-    let cacheEngine;
+  buildRepository(): RepositoryType {
+    let repo: RepositoryType;
 
     switch (this.engine) {
       case 'DYNAMODB':
-        cacheEngine = new CacheEngineFactory().getInstance(
-          DynamoDBEngine,
+        repo = new RepositoryFactory().getInstance(
+          DDBRepository,
           this.engine,
           this.config
         );
         break;
 
       case 'MEMCACHE':
-        cacheEngine = new CacheEngineFactory().getInstance(
-          MemcacheEngine,
+        repo = new CacheEngineFactory().getInstance(
+          MemcacheRepository,
           this.engine,
           this.config
         );
         break;
 
       case 'REDIS':
-        cacheEngine = new CacheEngineFactory().getInstance(
-          RedisEngine,
+        repo = new CacheEngineFactory().getInstance(
+          RedisRepository,
           this.engine,
           this.config
         );
         break;
+
+      default:
+        throw new Error('Repository not found');
     }
-    return cacheEngine;
+
+    return repo;
   }
 }

@@ -1,4 +1,4 @@
-import { CacheEngines, CacheManager } from '../src';
+import { CacheEngines, CacheManager } from '../../src';
 
 const RedisConfig = {
   port: 6379,

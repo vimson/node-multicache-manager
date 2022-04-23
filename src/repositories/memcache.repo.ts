@@ -1,9 +1,8 @@
-import { CacheInterface } from '../interfaces';
-import { Config } from '../interfaces';
+import { RepositoryInterface, Config } from '../interfaces';
 import Memcached from 'memcached';
 import stringify from 'json-stringify-safe';
 
-export class MemcacheEngine implements CacheInterface {
+export class MemcacheRepository implements RepositoryInterface {
   private client: Memcached;
 
   constructor(public engine: string, public config: Config) {

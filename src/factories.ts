@@ -11,4 +11,13 @@ export class CacheEngineFactory {
   }
 }
 
-//https://2ality.com/2020/04/classes-as-values-typescript.html
+export class RepositoryFactory {
+  public getInstance<T>(
+    entityClass: new (engine: string, config: Config) => T,
+    engine: string,
+    config: any
+  ): T {
+    const entity = new entityClass(engine, config);
+    return entity;
+  }
+}

@@ -16,3 +16,12 @@ export interface CacheInterface {
   read<Type>(key: string): Promise<Type>;
   delete(key: string): Promise<boolean>;
 }
+
+export interface RepositoryInterface {
+  engine: string;
+  config: Config;
+
+  write<Type>(key: string, item: Type, ttl?: number): Promise<any>;
+  read<Type>(key: string): Promise<Type>;
+  delete(key: string): Promise<boolean>;
+}

@@ -1,8 +1,7 @@
-import { CacheInterface } from '../interfaces';
-import { Config } from '../interfaces';
+import { RepositoryInterface, Config } from '../interfaces';
 import { DocumentClient } from 'aws-sdk/clients/dynamodb';
 
-export class DynamoDBEngine implements CacheInterface {
+export class DDBRepository implements RepositoryInterface {
   private client: DocumentClient;
   private dataType = 'GenericCache';
   private cacheTable = 'cache';
