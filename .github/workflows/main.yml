@@ -23,3 +23,7 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: yarn build
       - run: yarn test
+        env:
+          CI: true
+          EXCHANGE_OMS_ID: 1
+          ISOLATE: true
