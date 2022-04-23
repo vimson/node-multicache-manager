@@ -2,7 +2,7 @@
   "name": "node-multicache-manager",
   "author": "Vimson Varghese <vimson@gmail.com>",
   "description": "Node cache manager for Redis, Memcached and DynamoDB",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
