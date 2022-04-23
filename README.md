@@ -51,8 +51,7 @@ const writeData: Employee = {
 
 async function writeExamples() {
   const written = await cacheManager.write('hello2', writeData, 120000);
-  const writtenData = (await cacheManager.read) < Employee > 'hello2';
-
+  const writtenData = await cacheManager.read<Employee>('hello2');
   console.log(writtenData);
 }
 
